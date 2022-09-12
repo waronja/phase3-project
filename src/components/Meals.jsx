@@ -19,12 +19,12 @@ const Meals = () => {
 
   return <section className="section-center">
     {meals.map((singleMeal) => {
-      const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
-      return <article key={idMeal} className="single-meal" >
-        <img alt = "loading" src={image} className="img" onClick={() => selectMeal(idMeal)} />
+      const { id, strMeal: title, strMealThumb: image } = singleMeal
+      return <article key={id} className="single-meal" >
+        <img alt = "loading" src={image} className="img" onClick={() => selectMeal(id)} />
         <footer>
           <h5>{title}</h5>
-          <button className='like-btn' onClick={() => addToFavorites(idMeal)}><BsHandThumbsUp /></button>
+          <button className='like-btn' onClick={() => addToFavorites(id)}><BsHandThumbsUp /></button>
         </footer>
       </article>
     })}

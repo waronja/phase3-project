@@ -4,8 +4,8 @@ import axios from 'axios'
 const AppContext = React.createContext()
 
 
-const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s='
-const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php'
+const allMealsUrl = 'http://localhost:9292/meals'
+// const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php'
 
 
 const getFavoritesFromLocalStorage = () => {
@@ -60,12 +60,12 @@ const AppProvider = ({ children }) => {
     fetchMeals(randomMealUrl)
   }
 
-  const selectMeal = (idMeal, favoriteMeal) => {
+  const selectMeal = (id, favoriteMeal) => {
     let meal;
     if (favoriteMeal) {
-      meal = favorites.find((meal) => meal.idMeal === idMeal);
+      meal = favorites.find((meal) => meal.id === id);
     } else {
-      meal = meals.find((meal) => meal.idMeal === idMeal);
+      meal = meals.find((meal) => meal.id === id);
     }
     setSelectedMeal(meal);
     setShowModal(true)
@@ -74,16 +74,16 @@ const AppProvider = ({ children }) => {
   const closeModal = () => {
     setShowModal(false)
   }
-  const addToFavorites = (idMeal) => {
-    const meal = meals.find((meal) => meal.idMeal === idMeal);
-    const alreadyFavorite = favorites.find((meal) => meal.idMeal === idMeal);
+  const addToFavorites = (id) => {
+    const meal = meals.find((meal) => meal.id === id);
+    const alreadyFavorite = favorites.find((meal) => meal.id === id);
     if (alreadyFavorite) return
     const updatedFavorites = [...favorites, meal]
     setFavorites(updatedFavorites)
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
   }
-  const removeFromFavorites = (idMeal) => {
-    const updatedFavorites = favorites.filter((meal) => meal.idMeal !== idMeal);
+  const removeFromFavorites = (id) => {
+    const updatedFavorites = favorites.filter((meal) => meal.id !== id);
     setFavorites(updatedFavorites)
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
   }
